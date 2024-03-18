@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>botao</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            position: absolute;
+            top: 50vh;
+            right: 100vh;
+            border: none;
+            outline: none;
+            background-color: #181818;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            border-radius: 5px;
+            transition: all ease 0.1s;
+            box-shadow: 0px 5px 0px 0px #adadad;
+        }
+
+        button:active {
+            transform: translateY(5px);
+            box-shadow: 0px 0px 0px 0px #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <audio id="reproduzirMusica" src="musica.mp3" loop></audio>
+    <button onclick="iniciarFesta()">BANGARANG</button>
+
+    <script>
+        var intervalo;
+        var festaAtiva = false;
+        var musica = document.getElementById("reproduzirMusica");
+
+        function iniciarFesta() {
+            if (!festaAtiva) {
+                intervalo = setInterval(alterarFundoAutomaticamente, 100); // Mudar a cada 0.1 segundos
+                festaAtiva = true;
+                reproduzirMusica();
+            } else {
+                pararFesta();
+                festaAtiva = false;
+            }
+        }
+
+        function pararFesta() {
+            clearInterval(intervalo); // Parar de mudar as cores automaticamente
+            pararMusica(); // Parar a reprodução da música
+        }
+
+        function alterarFundoAutomaticamente() {
+            var cores = ["#ff5733", "#ffbb33", "#33ff57", "#3388ff", "#d933ff", "#33ffd9", "#e0ff33"];
+            var corAleatoria = cores[Math.floor(Math.random() * cores.length)];
+            document.body.style.backgroundColor = corAleatoria;
+        }
+
+        function reproduzirMusica() {
+            musica.currentTime = 27.2; // Define o ponto de partida para 26 segundos
+            musica.volume = 0.2; // Define o volume para 20% do volume máximo
+            musica.play(); // Inicia a reprodução da música
+        }
+
+        function pararMusica() {
+            musica.pause(); // Pausar a reprodução da música
+        }
+    </script>
+</body>
+
+</html>
